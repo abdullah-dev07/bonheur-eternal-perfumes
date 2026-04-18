@@ -17,22 +17,46 @@
   isolation: isolate;
 }
 
-/* Sand / amber gradient standing in for a real hero photo.
-   To use a real image, replace .hero__placeholder with an <img>
-   (see README — paths and dimensions are already reserved). */
+/* Sand / amber gradient layer — sits underneath the hero photo so the
+   brand colour still reads if the image is missing or still loading. */
 .hero__placeholder {
   position: absolute;
   inset: 0;
-  z-index: -2;
-  opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 1.4s var(--ease-out),
-              transform 2.2s var(--ease-out);
+  z-index: -3;
 }
 
-body.is-loaded .hero__placeholder {
+/* Real hero photograph (assets/hero-bottle.jpg).
+   Covers the full hero, with the bottle biased to the right third
+   so the headline + CTA on the left stay uncluttered.
+   Enters with a subtle scale + fade on body.is-loaded. */
+.hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;
+  z-index: -2;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 1.4s var(--ease-out),
+    transform 2.4s var(--ease-out);
+  will-change: transform, opacity;
+}
+
+body.is-loaded .hero__img {
   opacity: 1;
   transform: scale(1);
+}
+
+@media (max-width: 860px) {
+  .hero__img { object-position: 58% 50%; }
+}
+
+@media (max-width: 640px) {
+  /* On narrow screens, center the bottle; text stacks above it anyway. */
+  .hero__img { object-position: 50% 35%; }
 }
 
 .hero__placeholder--sand {
@@ -58,48 +82,19 @@ body.is-loaded .hero__placeholder {
   pointer-events: none;
 }
 
-/* Bottle silhouette (stylized glass rectangle) */
-.hero__bottle {
-  position: absolute;
-  right: 8%;
-  top: 16%;
-  width: min(420px, 42vw);
-  aspect-ratio: 2 / 3;
-  background:
-    linear-gradient(180deg,
-      rgba(255, 255, 255, 0.32) 0%,
-      rgba(255, 255, 255, 0.14) 40%,
-      rgba(255, 255, 255, 0.24) 100%);
-  border-radius: 14px 14px 22px 22px;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.38),
-    0 40px 80px -20px rgba(40, 20, 8, 0.45);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-
-  opacity: 0;
-  transform: translateY(36px) scale(0.96);
-  transition: opacity 1.4s var(--ease-out) 0.25s,
-              transform 1.6s var(--ease-out) 0.25s;
-}
-
-body.is-loaded .hero__bottle {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: hero-bottle-float 7s var(--ease-in-out) 2s infinite;
-}
-
-/* Soft amber glow behind the bottle — fades in after entrance */
+/* Soft amber glow layered over the image for an editorial finish.
+   Sits between the photo and the scrim (above image, below scrim). */
 .hero__glow {
   position: absolute;
-  right: calc(8% + min(420px, 42vw) / 2);
-  top: calc(16% + min(420px, 42vw) * 0.75);
-  transform: translate(50%, -50%) scale(0.6);
-  width: min(620px, 60vw);
+  right: 18%;
+  top: 38%;
+  transform: translate(50%, -50%) scale(0.75);
+  width: min(620px, 58vw);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 220, 170, 0.55) 0%, rgba(255, 180, 110, 0.1) 50%, transparent 70%);
-  filter: blur(40px);
+  background: radial-gradient(circle, rgba(255, 220, 170, 0.35) 0%, rgba(255, 180, 110, 0.08) 50%, transparent 70%);
+  filter: blur(50px);
+  mix-blend-mode: screen;
   z-index: -1;
   opacity: 0;
   transition: opacity 1.8s var(--ease-out) 0.6s,
@@ -112,14 +107,28 @@ body.is-loaded .hero__glow {
   transform: translate(50%, -50%) scale(1);
 }
 
+/* Scrim — strengthens legibility of the headline over the warm photo.
+   Left side darkens a bit more so the text holds contrast. */
 .hero__scrim {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(20, 12, 6, 0.35) 0%, rgba(20, 12, 6, 0) 25%, rgba(20, 12, 6, 0) 55%, rgba(20, 12, 6, 0.45) 100%),
-    linear-gradient(90deg, rgba(20, 12, 6, 0.30) 0%, rgba(20, 12, 6, 0.05) 55%, rgba(20, 12, 6, 0) 100%);
+    linear-gradient(
+      90deg,
+      rgba(20, 12, 6, 0.60) 0%,
+      rgba(20, 12, 6, 0.35) 28%,
+      rgba(20, 12, 6, 0.05) 60%,
+      rgba(20, 12, 6, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(20, 12, 6, 0.35) 0%,
+      rgba(20, 12, 6, 0) 28%,
+      rgba(20, 12, 6, 0) 55%,
+      rgba(20, 12, 6, 0.5) 100%
+    );
 }
 
 .hero__content {
@@ -162,14 +171,4 @@ body.is-loaded .hero__glow {
 
 @media (max-width: 640px) {
   .hero__media { min-height: 88vh; }
-  .hero__bottle {
-    right: 6%;
-    top: 10%;
-    width: 55vw;
-  }
-}
-
-@keyframes hero-bottle-float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%      { transform: translateY(-10px) scale(1); }
 }
