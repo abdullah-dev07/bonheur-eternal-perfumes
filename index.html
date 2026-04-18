@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bonheur Eternal — a luxury fragrance house crafting timeless scents. Explore our signature collection and order directly via WhatsApp." />
+  <meta name="theme-color" content="#2b1e14" />
+  <title>Bonheur Eternal — Luxury Fragrance House</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============== NAVIGATION ============== -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="nav__brand" aria-label="Bonheur Eternal home">
+        <span class="nav__brand-mark">Bonheur</span>
+        <span class="nav__brand-sub">Eternal</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#collection">Collection</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button
+        class="nav__toggle"
+        id="navToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="nav__mobile" id="mobileMenu" hidden>
+      <a href="#home">Home</a>
+      <a href="#collection">Collection</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============== HERO ============== -->
+    <section class="hero" id="home">
+      <div class="hero__media" role="img" aria-label="A luxurious perfume bottle resting on warm sand under golden light">
+        <!-- Placeholder image. Replace .hero__placeholder background or swap for <img src="..."> later. -->
+        <div class="hero__placeholder hero__placeholder--sand"></div>
+
+        <div class="hero__scrim"></div>
+
+        <div class="hero__content container">
+          <h1 class="hero__title">Fragrance,<br />Eternalized.</h1>
+          <p class="hero__subtitle">
+            A curated collection of luxury perfumes, composed to elevate
+            every mood, memory, and moment — effortlessly, timelessly.
+          </p>
+          <a
+            class="btn btn--primary hero__cta"
+            href="https://wa.me/15551234567?text=Hi%20Bonheur%20Eternal%2C%20I%27d%20like%20to%20order%20a%20fragrance."
+            target="_blank"
+            rel="noopener"
+          >
+            Order via WhatsApp
+            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== COLLECTION ============== -->
+    <section class="collection" id="collection">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">The Collection</span>
+          <h2 class="section-title">Signature Fragrances</h2>
+          <p class="section-lede">
+            Four singular compositions — each an olfactive chapter in the
+            Bonheur Eternal story.
+          </p>
+        </header>
+
+        <div class="cards">
+          <!-- Card 1 -->
+          <article class="card">
+            <div class="card__media">
+              <div class="card__placeholder card__placeholder--amber">
+                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleA"/></svg>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__head">
+                <h3 class="card__name">Velvet Mist</h3>
+                <span class="card__tag">50ml</span>
+              </div>
+              <p class="card__desc">
+                A plush veil of rose absolute, vanilla orchid, and sueded
+                musk — warm, enveloping, quietly opulent.
+              </p>
+              <a
+                class="btn btn--ghost card__cta"
+                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Velvet%20Mist."
+                target="_blank"
+                rel="noopener"
+              >Order via WhatsApp</a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card">
+            <div class="card__media">
+              <div class="card__placeholder card__placeholder--ivory">
+                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleB"/></svg>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__head">
+                <h3 class="card__name">Scent Luxe</h3>
+                <span class="card__tag">50ml</span>
+              </div>
+              <p class="card__desc">
+                Crisp bergamot meets white iris and cedarwood — a clean,
+                architectural fragrance with an understated confidence.
+              </p>
+              <a
+                class="btn btn--ghost card__cta"
+                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Scent%20Luxe."
+                target="_blank"
+                rel="noopener"
+              >Order via WhatsApp</a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card">
+            <div class="card__media">
+              <div class="card__placeholder card__placeholder--bronze">
+                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleC"/></svg>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__head">
+                <h3 class="card__name">Essence Box</h3>
+                <span class="card__tag">50ml</span>
+              </div>
+              <p class="card__desc">
+                Smoked oud, saffron, and amber resin layered over leather —
+                a dusk-lit signature for the quietly magnetic.
+              </p>
+              <a
+                class="btn btn--ghost card__cta"
+                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Essence%20Box."
+                target="_blank"
+                rel="noopener"
+              >Order via WhatsApp</a>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card">
+            <div class="card__media">
+              <div class="card__placeholder card__placeholder--rose">
+                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleD"/></svg>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__head">
+                <h3 class="card__name">Nuit Dorée</h3>
+                <span class="card__tag">50ml</span>
+              </div>
+              <p class="card__desc">
+                Jasmine sambac, candied plum, and golden tobacco — a rich,
+                after-hours accord wrapped in warm sensuality.
+              </p>
+              <a
+                class="btn btn--ghost card__cta"
+                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Nuit%20Doree."
+                target="_blank"
+                rel="noopener"
+              >Order via WhatsApp</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ABOUT ============== -->
+    <section class="about" id="about">
+      <div class="container about__grid">
+        <div class="about__media">
+          <div class="about__placeholder" aria-hidden="true">
+            <svg viewBox="0 0 120 160"><use href="#bottleHero"/></svg>
+          </div>
+        </div>
+
+        <div class="about__content">
+          <span class="eyebrow">Our Story</span>
+          <h2 class="section-title">The Art of Lasting Impression</h2>
+          <p class="about__lead">
+            Bonheur Eternal is a quiet rebellion against the disposable.
+            We craft fragrances the old way — slowly, deliberately, from
+            raw essences sourced at their origin — then translate them
+            into modern compositions made for the lives we live now.
+          </p>
+          <p>
+            Every bottle is a small archive: of place, of feeling, of a
+            moment worth returning to. Our vision is simple — that scent
+            should not merely accompany you, but become a language of
+            who you are. Refined. Unhurried. Eternally yours.
+          </p>
+
+          <ul class="about__pillars">
+            <li>
+              <strong>Sourced</strong>
+              <span>Rare naturals from their regions of origin.</span>
+            </li>
+            <li>
+              <strong>Crafted</strong>
+              <span>Composed in small batches by master perfumers.</span>
+            </li>
+            <li>
+              <strong>Eternal</strong>
+              <span>Made to linger — on skin, and in memory.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CONTACT ============== -->
+    <section class="contact" id="contact">
+      <div class="container contact__grid">
+        <div class="contact__intro">
+          <span class="eyebrow">Get in Touch</span>
+          <h2 class="section-title">Let's Begin a Conversation</h2>
+          <p>
+            For collaborations, press, wholesale inquiries, or simply to
+            say hello — we read every message personally and respond
+            within two business days.
+          </p>
+
+          <ul class="contact__details">
+            <li><span>Email</span><a href="mailto:hello@bonheureternal.com">hello@bonheureternal.com</a></li>
+            <li><span>WhatsApp</span><a href="https://wa.me/15551234567" target="_blank" rel="noopener">+1 (555) 123-4567</a></li>
+            <li><span>Studio</span><a href="#">Paris · Mumbai · Dubai</a></li>
+          </ul>
+        </div>
+
+        <form class="contact__form" id="contactForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary contact__submit">
+            Send Message
+          </button>
+
+          <p class="contact__status" id="contactStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__mark">Bonheur Eternal</span>
+        <span class="footer__tag">Fragrance, eternalized.</span>
+      </div>
+
+      <ul class="footer__links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <ul class="footer__contact">
+        <li>www.bonheureternal.com</li>
+        <li>hello@bonheureternal.com</li>
+        <li>+1 (555) 123-4567</li>
+      </ul>
+    </div>
+
+    <div class="footer__meta container">
+      <span>© <span id="year"></span> Bonheur Eternal. All rights reserved.</span>
+      <span>Crafted with intention.</span>
+    </div>
+  </footer>
+
+  <!-- SVG sprite: decorative bottle silhouettes for placeholders -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="bottleA" viewBox="0 0 120 160">
+        <rect x="52" y="8" width="16" height="14" rx="2" fill="currentColor" opacity=".55"/>
+        <rect x="48" y="22" width="24" height="10" rx="2" fill="currentColor" opacity=".35"/>
+        <path d="M34 36 h52 a6 6 0 0 1 6 6 v96 a12 12 0 0 1 -12 12 h-40 a12 12 0 0 1 -12 -12 v-96 a6 6 0 0 1 6 -6z" fill="currentColor" opacity=".22"/>
+        <rect x="42" y="78" width="36" height="34" rx="2" fill="#fff" opacity=".35"/>
+      </symbol>
+      <symbol id="bottleB" viewBox="0 0 120 160">
+        <rect x="54" y="6" width="12" height="18" rx="2" fill="currentColor" opacity=".55"/>
+        <rect x="38" y="30" width="44" height="120" rx="3" fill="currentColor" opacity=".22"/>
+        <rect x="46" y="66" width="28" height="38" rx="2" fill="#fff" opacity=".4"/>
+      </symbol>
+      <symbol id="bottleC" viewBox="0 0 120 160">
+        <rect x="52" y="10" width="16" height="10" rx="2" fill="currentColor" opacity=".55"/>
+        <path d="M30 36 q30 -12 60 0 v100 a14 14 0 0 1 -14 14 h-32 a14 14 0 0 1 -14 -14z" fill="currentColor" opacity=".22"/>
+        <ellipse cx="60" cy="94" rx="20" ry="24" fill="#fff" opacity=".28"/>
+      </symbol>
+      <symbol id="bottleD" viewBox="0 0 120 160">
+        <rect x="50" y="4" width="20" height="12" rx="2" fill="currentColor" opacity=".55"/>
+        <rect x="44" y="16" width="32" height="14" rx="2" fill="currentColor" opacity=".35"/>
+        <rect x="28" y="30" width="64" height="122" rx="6" fill="currentColor" opacity=".22"/>
+        <rect x="44" y="74" width="32" height="36" rx="2" fill="#fff" opacity=".35"/>
+      </symbol>
+      <symbol id="bottleHero" viewBox="0 0 120 160">
+        <rect x="50" y="4" width="20" height="14" rx="2" fill="currentColor" opacity=".5"/>
+        <rect x="44" y="18" width="32" height="14" rx="2" fill="currentColor" opacity=".32"/>
+        <rect x="24" y="32" width="72" height="124" rx="6" fill="currentColor" opacity=".2"/>
+        <rect x="40" y="78" width="40" height="44" rx="2" fill="#fff" opacity=".35"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
