@@ -1,0 +1,40 @@
+    <section class="contact" id="contact">
+      <div class="container contact__grid">
+        <div class="contact__intro reveal">
+          <span class="eyebrow">Get in Touch</span>
+          <h2 class="section-title">Let's Begin a Conversation</h2>
+          <p>
+            For collaborations, press, wholesale inquiries, or simply to
+            say hello — we read every message personally and respond
+            within two business days.
+          </p>
+
+          <ul class="contact__details">
+            <li><span>Email</span><a href="mailto:hello@bonheureternal.com">hello@bonheureternal.com</a></li>
+            <li><span>WhatsApp</span><a href="https://wa.me/15551234567" target="_blank" rel="noopener">+1 (555) 123-4567</a></li>
+            <li><span>Studio</span><a href="#">Paris · Mumbai · Dubai</a></li>
+          </ul>
+        </div>
+
+        <form class="contact__form reveal" style="--reveal-delay: 120ms" id="contactForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary contact__submit">
+            Send Message
+          </button>
+
+          <p class="contact__status" id="contactStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>

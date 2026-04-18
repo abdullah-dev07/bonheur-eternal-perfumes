@@ -1,0 +1,135 @@
+/* =========================================================
+   Collection section + perfume cards
+   ========================================================= */
+
+.collection {
+  background: var(--c-surface-dark);
+  color: var(--c-sand-50);
+  padding: clamp(var(--s-10), 10vw, var(--s-12)) 0;
+}
+
+.collection .section-title { color: var(--c-sand-50); }
+.collection .section-lede  { color: rgba(245, 235, 220, 0.72); }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-6);
+}
+
+@media (max-width: 1080px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 820px)  { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px)  { .cards { grid-template-columns: 1fr; gap: var(--s-5); } }
+
+.card {
+  background: rgba(245, 235, 220, 0.04);
+  border: 1px solid var(--c-line-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--t-med) var(--ease),
+              border-color var(--t-med) var(--ease),
+              background var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(196, 134, 75, 0.45);
+  background: rgba(245, 235, 220, 0.06);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+}
+
+.card__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #efe4d3;
+}
+
+.card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  isolation: isolate;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.card:hover .card__placeholder { transform: scale(1.04); }
+
+.card__placeholder svg {
+  width: 45%;
+  height: auto;
+  filter: drop-shadow(0 14px 18px rgba(40, 20, 8, 0.25));
+  transition: transform var(--t-med) var(--ease-out);
+}
+
+.card:hover .card__placeholder svg { transform: translateY(-4px); }
+
+.card__placeholder::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 35%;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.12));
+  z-index: -1;
+}
+
+.card__placeholder--amber  { color: #c48149; background: radial-gradient(ellipse at 50% 60%, #e9c19a 0%, #d8a274 55%, #b87a48 100%); }
+.card__placeholder--ivory  { color: #b8a48a; background: radial-gradient(ellipse at 50% 60%, #f5ecdb 0%, #e3d4b8 55%, #c8b68f 100%); }
+.card__placeholder--bronze { color: #8a5a2d; background: radial-gradient(ellipse at 50% 60%, #d2a269 0%, #a7743f 55%, #6e4823 100%); }
+.card__placeholder--rose   { color: #a55a4a; background: radial-gradient(ellipse at 50% 60%, #e9c4b3 0%, #c58a74 55%, #8f4b3b 100%); }
+
+.card__body {
+  padding: var(--s-5) var(--s-5) var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  flex: 1;
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.card__name {
+  font-size: var(--fs-h3);
+  color: var(--c-sand-50);
+}
+
+.card__tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--c-amber-500);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.card__desc {
+  color: rgba(245, 235, 220, 0.7);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.card__cta {
+  align-self: flex-start;
+  margin-top: var(--s-3);
+  color: var(--c-sand-50);
+  border-color: var(--c-line-dark);
+}
+
+.card__cta:hover {
+  background: var(--c-amber-500);
+  border-color: var(--c-amber-500);
+  color: #fff;
+}

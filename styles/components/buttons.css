@@ -1,0 +1,56 @@
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+.btn {
+  --btn-pad-y: 0.95rem;
+  --btn-pad-x: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: transform var(--t-fast) var(--ease),
+              background var(--t-med) var(--ease),
+              color var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--c-amber-500);
+  outline-offset: 3px;
+}
+
+.btn--primary {
+  background: var(--c-amber-500);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover {
+  background: var(--c-amber-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+  border: 1px solid var(--c-line);
+}
+
+.btn--ghost:hover {
+  background: var(--c-ink);
+  color: #fff;
+  border-color: var(--c-ink);
+}
+
+.btn__icon { transition: transform var(--t-fast) var(--ease); }
+.btn:hover .btn__icon { transform: translateX(3px); }

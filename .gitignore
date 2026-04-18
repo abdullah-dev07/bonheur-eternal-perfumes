@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+
+
+Makefile
+# Build output is committed intentionally (static site).
+# Uncomment the next line to exclude it if you move to CI-based deploys.
+# /index.html

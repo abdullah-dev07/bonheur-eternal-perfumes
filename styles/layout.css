@@ -1,0 +1,48 @@
+/* =========================================================
+   Container, section headers, shared helpers
+   ========================================================= */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--s-6);
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 var(--s-5); }
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--ff-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-amber-500);
+  margin-bottom: var(--s-4);
+}
+
+.section-title {
+  font-size: var(--fs-h2);
+  color: var(--c-ink);
+  max-width: 22ch;
+}
+
+.section-lede {
+  margin-top: var(--s-4);
+  font-size: var(--fs-lg);
+  color: var(--c-ink-soft);
+  max-width: 52ch;
+  line-height: 1.55;
+}
+
+.section-head {
+  text-align: center;
+  margin: 0 auto var(--s-9);
+  max-width: 700px;
+}
+
+.section-head .section-title,
+.section-head .section-lede { margin-inline: auto; }

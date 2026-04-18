@@ -11,10 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+
 </head>
 <body>
-  <!-- ============== NAVIGATION ============== -->
   <header class="nav" id="nav">
     <div class="container nav__inner">
       <a href="#home" class="nav__brand" aria-label="Bonheur Eternal home">
@@ -49,22 +49,32 @@
   </header>
 
   <main>
-    <!-- ============== HERO ============== -->
     <section class="hero" id="home">
       <div class="hero__media" role="img" aria-label="A luxurious perfume bottle resting on warm sand under golden light">
-        <!-- Placeholder image. Replace .hero__placeholder background or swap for <img src="..."> later. -->
-        <div class="hero__placeholder hero__placeholder--sand"></div>
+        <!--
+          Placeholder background. To swap in a real image:
+          replace the next div with: <img class="hero__img" src="assets/hero.jpg" alt="..." />
+        -->
+        <div class="hero__placeholder hero__placeholder--sand">
+          <div class="hero__bottle" aria-hidden="true"></div>
+          <div class="hero__glow" aria-hidden="true"></div>
+        </div>
 
         <div class="hero__scrim"></div>
 
         <div class="hero__content container">
-          <h1 class="hero__title">Fragrance,<br />Eternalized.</h1>
-          <p class="hero__subtitle">
+          <h1 class="hero__title">
+            <span class="hero__word" data-reveal="hero-title-1">Fragrance,</span>
+            <br />
+            <span class="hero__word" data-reveal="hero-title-2">Eternalized.</span>
+          </h1>
+          <p class="hero__subtitle" data-reveal="hero-subtitle">
             A curated collection of luxury perfumes, composed to elevate
             every mood, memory, and moment — effortlessly, timelessly.
           </p>
           <a
             class="btn btn--primary hero__cta"
+            data-reveal="hero-cta"
             href="https://wa.me/15551234567?text=Hi%20Bonheur%20Eternal%2C%20I%27d%20like%20to%20order%20a%20fragrance."
             target="_blank"
             rel="noopener"
@@ -78,10 +88,9 @@
       </div>
     </section>
 
-    <!-- ============== COLLECTION ============== -->
     <section class="collection" id="collection">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal">
           <span class="eyebrow">The Collection</span>
           <h2 class="section-title">Signature Fragrances</h2>
           <p class="section-lede">
@@ -91,8 +100,7 @@
         </header>
 
         <div class="cards">
-          <!-- Card 1 -->
-          <article class="card">
+          <article class="card reveal" style="--reveal-delay: 0ms">
             <div class="card__media">
               <div class="card__placeholder card__placeholder--amber">
                 <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleA"/></svg>
@@ -116,8 +124,7 @@
             </div>
           </article>
 
-          <!-- Card 2 -->
-          <article class="card">
+          <article class="card reveal" style="--reveal-delay: 100ms">
             <div class="card__media">
               <div class="card__placeholder card__placeholder--ivory">
                 <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleB"/></svg>
@@ -141,8 +148,7 @@
             </div>
           </article>
 
-          <!-- Card 3 -->
-          <article class="card">
+          <article class="card reveal" style="--reveal-delay: 200ms">
             <div class="card__media">
               <div class="card__placeholder card__placeholder--bronze">
                 <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleC"/></svg>
@@ -166,8 +172,7 @@
             </div>
           </article>
 
-          <!-- Card 4 -->
-          <article class="card">
+          <article class="card reveal" style="--reveal-delay: 300ms">
             <div class="card__media">
               <div class="card__placeholder card__placeholder--rose">
                 <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleD"/></svg>
@@ -194,16 +199,15 @@
       </div>
     </section>
 
-    <!-- ============== ABOUT ============== -->
     <section class="about" id="about">
       <div class="container about__grid">
-        <div class="about__media">
+        <div class="about__media reveal">
           <div class="about__placeholder" aria-hidden="true">
             <svg viewBox="0 0 120 160"><use href="#bottleHero"/></svg>
           </div>
         </div>
 
-        <div class="about__content">
+        <div class="about__content reveal" style="--reveal-delay: 120ms">
           <span class="eyebrow">Our Story</span>
           <h2 class="section-title">The Art of Lasting Impression</h2>
           <p class="about__lead">
@@ -237,10 +241,9 @@
       </div>
     </section>
 
-    <!-- ============== CONTACT ============== -->
     <section class="contact" id="contact">
       <div class="container contact__grid">
-        <div class="contact__intro">
+        <div class="contact__intro reveal">
           <span class="eyebrow">Get in Touch</span>
           <h2 class="section-title">Let's Begin a Conversation</h2>
           <p>
@@ -256,7 +259,7 @@
           </ul>
         </div>
 
-        <form class="contact__form" id="contactForm" novalidate>
+        <form class="contact__form reveal" style="--reveal-delay: 120ms" id="contactForm" novalidate>
           <div class="field">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" autocomplete="name" required />
@@ -278,9 +281,9 @@
         </form>
       </div>
     </section>
+
   </main>
 
-  <!-- ============== FOOTER ============== -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
@@ -308,7 +311,7 @@
     </div>
   </footer>
 
-  <!-- SVG sprite: decorative bottle silhouettes for placeholders -->
+  <!-- Reusable bottle silhouettes used as placeholders via <use href="#id"> -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <symbol id="bottleA" viewBox="0 0 120 160">
@@ -342,6 +345,7 @@
     </defs>
   </svg>
 
-  <script src="script.js" defer></script>
+  <script type="module" src="scripts/main.js"></script>
+
 </body>
 </html>
