@@ -11,7 +11,1114 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+/*
+ * Bonheur Eternal — stylesheet entry point.
+ * Modules are imported in cascade order: tokens → layout → components → animations.
+ * Kept as native @imports for zero-build development. Bundle for production if desired.
+ */
+
+/* ↪ inlined styles/tokens.css */
+/* =========================================================
+   Design tokens + base reset
+   Edit here to rebrand the entire site.
+   ========================================================= */
+
+:root {
+  /* ---- Palette (warm sand / deep espresso / amber) ---- */
+  --c-sand-50:  #faf5ee;
+  --c-sand-100: #f3e9d9;
+  --c-sand-200: #e8d5b7;
+  --c-sand-300: #d8b892;
+  --c-sand-400: #c9a073;
+
+  --c-amber-400: #c4864b;
+  --c-amber-500: #b87333;
+  --c-amber-600: #9e5f23;
+
+  --c-espresso-900: #241812;
+  --c-espresso-800: #2e1f15;
+  --c-espresso-700: #3b2a1e;
+  --c-espresso-600: #4a362a;
+
+  --c-ink:       #1a120b;
+  --c-ink-soft:  #5a4a3d;
+  --c-ink-muted: #8a7b6c;
+  --c-line:      rgba(40, 28, 18, .12);
+  --c-line-dark: rgba(245, 235, 220, .14);
+
+  --c-surface:        #ffffff;
+  --c-surface-warm:   #faf5ee;
+  --c-surface-dark:   #2e1f15;
+  --c-surface-darker: #241812;
+
+  /* ---- Typography ---- */
+  --ff-display: "Cormorant Garamond", "Times New Roman", serif;
+  --ff-body:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1rem;
+  --fs-md:   1.0625rem;
+  --fs-lg:   clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --fs-h3:   clamp(1.375rem, 1.2rem + 0.7vw, 1.625rem);
+  --fs-h2:   clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  --fs-h1:   clamp(2.75rem, 2rem + 4.8vw, 5.5rem);
+
+  /* ---- Spacing scale ---- */
+  --s-1: 0.25rem; --s-2: 0.5rem;  --s-3: 0.75rem; --s-4: 1rem;
+  --s-5: 1.5rem;  --s-6: 2rem;    --s-7: 2.5rem;  --s-8: 3rem;
+  --s-9: 4rem;    --s-10: 5rem;   --s-11: 6rem;   --s-12: 8rem;
+
+  /* ---- Layout ---- */
+  --container: 1200px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(20, 12, 4, 0.06);
+  --shadow-md: 0 10px 30px -12px rgba(20, 12, 4, 0.25);
+  --shadow-lg: 0 30px 60px -20px rgba(20, 12, 4, 0.35);
+
+  /* ---- Motion ---- */
+  --ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 180ms;
+  --t-med:  320ms;
+  --t-slow: 700ms;
+}
+
+/* =========================================================
+   Reset & base
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 72px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ff-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--c-ink);
+  background: var(--c-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease);
+}
+
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--ff-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--c-amber-500); color: #fff; }
+
+/* ↪ inlined styles/layout.css */
+/* =========================================================
+   Container, section headers, shared helpers
+   ========================================================= */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--s-6);
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 var(--s-5); }
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--ff-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-amber-500);
+  margin-bottom: var(--s-4);
+}
+
+.section-title {
+  font-size: var(--fs-h2);
+  color: var(--c-ink);
+  max-width: 22ch;
+}
+
+.section-lede {
+  margin-top: var(--s-4);
+  font-size: var(--fs-lg);
+  color: var(--c-ink-soft);
+  max-width: 52ch;
+  line-height: 1.55;
+}
+
+.section-head {
+  text-align: center;
+  margin: 0 auto var(--s-9);
+  max-width: 700px;
+}
+
+.section-head .section-title,
+.section-head .section-lede { margin-inline: auto; }
+
+
+/* ↪ inlined styles/components/nav.css */
+/* =========================================================
+   Navigation bar
+   ========================================================= */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding: var(--s-4) 0;
+  background: rgba(36, 24, 18, 0);
+  transition: background var(--t-med) var(--ease),
+              backdrop-filter var(--t-med) var(--ease),
+              padding var(--t-med) var(--ease);
+}
+
+.nav.is-scrolled {
+  background: rgba(20, 12, 6, 0.78);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--c-line-dark);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-6);
+}
+
+.nav__brand {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  color: #fff;
+}
+
+.nav__brand-mark {
+  font-family: var(--ff-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.nav__brand-sub {
+  font-family: var(--ff-body);
+  font-size: 0.625rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  margin-top: 2px;
+  color: var(--c-sand-200);
+}
+
+.nav__links {
+  display: flex;
+  gap: var(--s-7);
+}
+
+.nav__links a {
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.88);
+  padding: var(--s-2) 0;
+  position: relative;
+}
+
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--c-amber-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-med) var(--ease);
+}
+
+.nav__links a:hover { color: #fff; }
+.nav__links a:hover::after { transform: scaleX(1); }
+
+.nav__toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #fff;
+  transition: transform var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+}
+
+.nav__mobile {
+  display: none;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-5) var(--s-6) var(--s-6);
+  background: rgba(20, 12, 6, 0.96);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--c-line-dark);
+}
+
+.nav__mobile a {
+  color: rgba(255, 255, 255, 0.9);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--c-line-dark);
+  font-size: var(--fs-md);
+}
+
+.nav__mobile a:last-child { border-bottom: none; }
+
+@media (max-width: 800px) {
+  .nav__links { display: none; }
+  .nav__toggle { display: flex; }
+  .nav__mobile[hidden] { display: none; }
+  .nav__mobile:not([hidden]) { display: flex; }
+
+  .nav.is-open .nav__toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav.is-open .nav__toggle span:nth-child(2) { opacity: 0; }
+  .nav.is-open .nav__toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+}
+
+/* ↪ inlined styles/components/buttons.css */
+/* =========================================================
+   Buttons
+   ========================================================= */
+
+.btn {
+  --btn-pad-y: 0.95rem;
+  --btn-pad-x: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: transform var(--t-fast) var(--ease),
+              background var(--t-med) var(--ease),
+              color var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--c-amber-500);
+  outline-offset: 3px;
+}
+
+.btn--primary {
+  background: var(--c-amber-500);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover {
+  background: var(--c-amber-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+  border: 1px solid var(--c-line);
+}
+
+.btn--ghost:hover {
+  background: var(--c-ink);
+  color: #fff;
+  border-color: var(--c-ink);
+}
+
+.btn__icon { transition: transform var(--t-fast) var(--ease); }
+.btn:hover .btn__icon { transform: translateX(3px); }
+
+/* ↪ inlined styles/components/hero.css */
+/* =========================================================
+   Hero section
+   Layout mirrors the reference: sand backdrop, bottle right,
+   editorial headline + CTA anchored to the lower third.
+   ========================================================= */
+
+.hero {
+  background: var(--c-sand-200);
+}
+
+.hero__media {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Sand / amber gradient — the primary hero backdrop. */
+.hero__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 1.4s var(--ease-out),
+    transform 2.2s var(--ease-out);
+}
+
+body.is-loaded .hero__placeholder {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hero bottle cut-out (assets/hero-bottle.png — native 1024 × 1536,
+   transparent background). Rendered at native aspect on the right
+   side of the hero, capped at ~460px displayed width so even on
+   retina the upscale stays below 1× (always crisp).
+   Uses `filter: drop-shadow` (not box-shadow) so the shadow follows
+   the bottle silhouette rather than a rectangular frame. */
+.hero__img {
+  position: absolute;
+  right: clamp(4rem, 9vw, 8rem);
+  top: 58%;
+  width: clamp(260px, 36vw, 460px);
+  height: auto;
+  z-index: 0;
+
+  filter:
+    drop-shadow(0 6px 10px rgba(20, 10, 4, 0.35))
+    drop-shadow(0 32px 28px rgba(20, 10, 4, 0.45))
+    drop-shadow(0 60px 60px rgba(20, 10, 4, 0.35));
+
+  opacity: 0;
+  transform: translate(28px, -50%) scale(0.97);
+  transition:
+    opacity 1.2s var(--ease-out) 0.35s,
+    transform 1.4s var(--ease-out) 0.35s;
+  will-change: transform, opacity;
+}
+
+body.is-loaded .hero__img {
+  opacity: 1;
+  transform: translate(0, -50%) scale(1);
+}
+
+/* Soft elliptical ground shadow under the bottle — grounds the
+   cut-out so it feels resting in the scene, not pasted on top. */
+.hero__img-ground {
+  position: absolute;
+  right: clamp(4rem, 9vw, 8rem);
+  top: 58%;
+  width: clamp(260px, 36vw, 460px);
+  aspect-ratio: 1 / 1;
+  transform: translate(-8%, 42%);
+  pointer-events: none;
+  z-index: -1;
+
+  background: radial-gradient(
+    ellipse 60% 18% at 50% 50%,
+    rgba(20, 10, 4, 0.5) 0%,
+    rgba(20, 10, 4, 0.25) 40%,
+    transparent 72%
+  );
+  filter: blur(6px);
+
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out) 0.55s;
+}
+
+body.is-loaded .hero__img-ground {
+  opacity: 0.9;
+}
+
+.hero__placeholder--sand {
+  background:
+    radial-gradient(ellipse 75% 55% at 70% 35%, rgba(255, 235, 200, 0.85), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 30% 75%, rgba(185, 120, 60, 0.55), transparent 60%),
+    linear-gradient(180deg, #d89e65 0%, #c98a52 35%, #a86a3c 72%, #8a5329 100%);
+}
+
+/* Grain texture overlay — layered dot gradients */
+.hero__placeholder--sand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.09) 0 1px, transparent 2px),
+    radial-gradient(circle at 65% 70%, rgba(255, 255, 255, 0.07) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 25%, rgba(0, 0, 0, 0.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(0, 0, 0, 0.05) 0 1px, transparent 2px);
+  background-size: 7px 7px, 11px 11px, 9px 9px, 13px 13px;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Soft amber glow behind the bottle photograph — gives the shot a
+   radiant halo so it reads as a lit product still, not a cut-out. */
+.hero__glow {
+  position: absolute;
+  right: clamp(4rem, 9vw, 8rem);
+  top: 58%;
+  transform: translate(15%, -50%) scale(0.75);
+  width: clamp(360px, 50vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 210, 150, 0.55) 0%,
+    rgba(255, 170, 90, 0.18) 45%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  mix-blend-mode: screen;
+  z-index: -1;
+  opacity: 0;
+  transition:
+    opacity 1.8s var(--ease-out) 0.6s,
+    transform 2s var(--ease-out) 0.6s;
+  pointer-events: none;
+}
+
+body.is-loaded .hero__glow {
+  opacity: 1;
+  transform: translate(15%, -50%) scale(1);
+}
+
+/* Subtle scrim — just top/bottom darkening for text legibility over
+   the sand gradient. No heavy left-bias needed now that the photo
+   no longer covers the full hero. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 12, 6, 0.30) 0%,
+      rgba(20, 12, 6, 0) 22%,
+      rgba(20, 12, 6, 0) 60%,
+      rgba(20, 12, 6, 0.45) 100%
+    );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: clamp(var(--s-9), 10vh, var(--s-11));
+  padding-top: var(--s-9);
+  max-width: var(--container);
+  color: #fff;
+}
+
+.hero__title {
+  font-size: var(--fs-h1);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+  max-width: 14ch;
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(20, 10, 4, 0.25);
+}
+
+.hero__word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.hero__subtitle {
+  margin-top: var(--s-5);
+  max-width: 48ch;
+  font-size: var(--fs-lg);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 300;
+  will-change: transform, opacity;
+}
+
+.hero__cta {
+  margin-top: var(--s-7);
+  will-change: transform, opacity;
+}
+
+/* On narrow screens: shrink the photo and pin it to the upper-right
+   corner so the headline + CTA flow freely beneath it. */
+@media (max-width: 640px) {
+  .hero__media { min-height: 88vh; }
+
+  .hero__img,
+  .hero__img-ground {
+    top: clamp(90px, 16vh, 22%);
+    right: 1rem;
+    width: min(52vw, 260px);
+  }
+
+  .hero__img {
+    transform: translate(16px, 0) scale(0.97);
+    filter:
+      drop-shadow(0 4px 8px rgba(20, 10, 4, 0.35))
+      drop-shadow(0 18px 18px rgba(20, 10, 4, 0.4))
+      drop-shadow(0 32px 32px rgba(20, 10, 4, 0.3));
+  }
+
+  body.is-loaded .hero__img {
+    transform: translate(0, 0) scale(1);
+  }
+
+  .hero__img-ground {
+    transform: translate(-8%, 50%);
+  }
+
+  .hero__glow {
+    top: clamp(90px, 16vh, 22%);
+    transform: translate(10%, 0) scale(0.75);
+    width: clamp(280px, 60vw, 360px);
+  }
+
+  body.is-loaded .hero__glow {
+    transform: translate(10%, 0) scale(1);
+  }
+}
+
+/* ↪ inlined styles/components/cards.css */
+/* =========================================================
+   Collection section + perfume cards
+   ========================================================= */
+
+.collection {
+  background: var(--c-surface-dark);
+  color: var(--c-sand-50);
+  padding: clamp(var(--s-10), 10vw, var(--s-12)) 0;
+}
+
+.collection .section-title { color: var(--c-sand-50); }
+.collection .section-lede  { color: rgba(245, 235, 220, 0.72); }
+
+/* 2 × 2 editorial grid — gives each fragrance generous real estate.
+   Max-width keeps cards tasteful on ultrawide screens; the grid is
+   centered within the section container. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(var(--s-5), 3vw, var(--s-7));
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+@media (max-width: 520px) {
+  .cards { grid-template-columns: 1fr; gap: var(--s-5); }
+}
+
+.card {
+  background: rgba(245, 235, 220, 0.04);
+  border: 1px solid var(--c-line-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--t-med) var(--ease),
+              border-color var(--t-med) var(--ease),
+              background var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(196, 134, 75, 0.45);
+  background: rgba(245, 235, 220, 0.06);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+}
+
+/* 3:4 portrait frame — sits inside the native aspect range of the
+   four product shots (0.56–0.99), so every image crops predictably
+   and the bottles line up at matching visual heights across cards. */
+.card__media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  position: relative;
+  background: var(--c-espresso-900);
+}
+
+/* Soft bottom fade that bridges the photo into the card body —
+   removes any visible seam between image and description area. */
+.card__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 24%;
+  background: linear-gradient(180deg, transparent, rgba(20, 12, 6, 0.45));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  transition: transform 1.4s var(--ease-out);
+  will-change: transform;
+}
+
+/* Per-image framing: tall shots (e.g. the amber hero-style bottle,
+   native aspect ~0.56) need the focal point nudged up so the cap
+   stays in frame when cropped to 3:4. */
+.card__img--tall { object-position: center 38%; }
+
+.card:hover .card__img { transform: scale(1.05); }
+
+.card__body {
+  padding: var(--s-6) var(--s-6) var(--s-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  flex: 1;
+}
+
+@media (max-width: 520px) {
+  .card__body { padding: var(--s-5) var(--s-5) var(--s-6); }
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.card__name {
+  font-size: var(--fs-h3);
+  color: var(--c-sand-50);
+}
+
+.card__tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--c-amber-500);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.card__desc {
+  color: rgba(245, 235, 220, 0.7);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.card__cta {
+  align-self: flex-start;
+  margin-top: var(--s-3);
+  color: var(--c-sand-50);
+  border-color: var(--c-line-dark);
+}
+
+.card__cta:hover {
+  background: var(--c-amber-500);
+  border-color: var(--c-amber-500);
+  color: #fff;
+}
+
+/* ↪ inlined styles/components/about.css */
+/* =========================================================
+   About section
+   ========================================================= */
+
+.about {
+  background: var(--c-surface-warm);
+  padding: clamp(var(--s-10), 10vw, var(--s-12)) 0;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(var(--s-7), 6vw, var(--s-10));
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .about__grid { grid-template-columns: 1fr; }
+}
+
+.about__media {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 35%, #e6c9a1 0%, #c9a073 55%, #8c6239 100%);
+  display: grid;
+  place-items: center;
+  color: #7a4e2a;
+  box-shadow: var(--shadow-md);
+}
+
+.about__placeholder svg {
+  width: 50%;
+  filter: drop-shadow(0 20px 28px rgba(40, 20, 8, 0.3));
+}
+
+.about__content .eyebrow { margin-bottom: var(--s-3); }
+.about__content .section-title { max-width: 18ch; margin-bottom: var(--s-5); }
+
+.about__lead {
+  font-family: var(--ff-display);
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--c-ink);
+  font-weight: 400;
+  margin-bottom: var(--s-5);
+}
+
+.about__content p:not(.about__lead) {
+  color: var(--c-ink-soft);
+  font-size: var(--fs-md);
+  line-height: 1.7;
+}
+
+.about__pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+  margin-top: var(--s-8);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-line);
+}
+
+@media (max-width: 540px) {
+  .about__pillars { grid-template-columns: 1fr; gap: var(--s-4); }
+}
+
+.about__pillars li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.about__pillars strong {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  color: var(--c-amber-500);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.about__pillars span {
+  color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+/* ↪ inlined styles/components/contact.css */
+/* =========================================================
+   Contact section
+   ========================================================= */
+
+.contact {
+  background: var(--c-surface);
+  padding: clamp(var(--s-10), 10vw, var(--s-12)) 0;
+  border-top: 1px solid var(--c-line);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(var(--s-7), 6vw, var(--s-10));
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .contact__grid { grid-template-columns: 1fr; }
+}
+
+.contact__intro .section-title { max-width: 14ch; margin-bottom: var(--s-5); }
+
+.contact__intro p {
+  color: var(--c-ink-soft);
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  max-width: 46ch;
+}
+
+.contact__details {
+  margin-top: var(--s-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.contact__details li {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: baseline;
+  gap: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.contact__details span {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
+}
+
+.contact__details a {
+  color: var(--c-ink);
+  font-size: var(--fs-md);
+}
+
+.contact__details a:hover { color: var(--c-amber-500); }
+
+.contact__form {
+  background: var(--c-surface-warm);
+  padding: clamp(var(--s-6), 4vw, var(--s-8));
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  border: 1px solid var(--c-line);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.field label {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
+}
+
+.field input,
+.field textarea {
+  font: inherit;
+  font-size: var(--fs-md);
+  color: var(--c-ink);
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+  font-family: var(--ff-body);
+  width: 100%;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--c-amber-500);
+  box-shadow: 0 0 0 3px rgba(196, 134, 75, 0.18);
+}
+
+.field input:invalid:not(:placeholder-shown),
+.field textarea:invalid:not(:placeholder-shown) {
+  border-color: #c65a4e;
+}
+
+.contact__submit { align-self: flex-start; margin-top: var(--s-2); }
+
+.contact__status {
+  font-size: var(--fs-sm);
+  min-height: 1.2em;
+  margin: 0;
+  color: var(--c-amber-600);
+}
+
+.contact__status.is-error   { color: #b63e31; }
+.contact__status.is-success { color: #4a7a3a; }
+
+/* ↪ inlined styles/components/footer.css */
+/* =========================================================
+   Footer
+   ========================================================= */
+
+.footer {
+  background: var(--c-surface-darker);
+  color: rgba(245, 235, 220, 0.78);
+  padding: var(--s-10) 0 var(--s-6);
+  border-top: 2px solid var(--c-amber-500);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: var(--s-7);
+  padding-bottom: var(--s-8);
+  border-bottom: 1px solid var(--c-line-dark);
+}
+
+@media (max-width: 760px) {
+  .footer__inner { grid-template-columns: 1fr; gap: var(--s-6); }
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.footer__mark {
+  font-family: var(--ff-display);
+  font-size: 1.5rem;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.footer__tag {
+  font-size: var(--fs-sm);
+  color: rgba(245, 235, 220, 0.55);
+  font-style: italic;
+}
+
+.footer__links,
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  font-size: var(--fs-sm);
+}
+
+.footer__links a:hover { color: var(--c-amber-400); }
+
+.footer__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-top: var(--s-5);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: rgba(245, 235, 220, 0.5);
+  flex-wrap: wrap;
+}
+
+
+/* ↪ inlined styles/animations.css */
+/* =========================================================
+   Animations
+   1. Hero entrance sequence (page-load, staggered via body.is-loaded)
+   2. Scroll-reveal utility (.reveal → .is-visible, driven by JS
+      IntersectionObserver)
+   3. Reduced-motion fallback
+
+   Initial states are applied before JS runs so no content flashes
+   into position after hydration.
+   ========================================================= */
+
+/* ---- 1. Hero page-load sequence ---- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 1s var(--ease-out),
+    transform 1s var(--ease-out);
+  will-change: transform, opacity;
+}
+
+body.is-loaded [data-reveal] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger each element in the hero content block */
+body.is-loaded [data-reveal="hero-title-1"] { transition-delay: 0.45s; }
+body.is-loaded [data-reveal="hero-title-2"] { transition-delay: 0.60s; }
+body.is-loaded [data-reveal="hero-subtitle"] { transition-delay: 0.85s; }
+body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
+
+/* ---- 2. Scroll reveal utility ---- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional variants for directional reveals */
+.reveal--left  { transform: translateX(-32px); }
+.reveal--right { transform: translateX(32px); }
+.reveal--left.is-visible,
+.reveal--right.is-visible { transform: translateX(0); }
+
+/* ---- 3. Reduced motion: disable everything ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal],
+  .reveal,
+  .hero__img,
+  .hero__glow {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+
+</style>
 
 </head>
 <body>
@@ -55,10 +1162,14 @@
              if the image is slow or missing. -->
         <div class="hero__placeholder hero__placeholder--sand" aria-hidden="true"></div>
 
+        <div class="hero__img-ground" aria-hidden="true"></div>
+
         <img
           class="hero__img"
-          src="assets/hero-bottle.jpg"
-          alt="A close-up of the Bonheur Eternal B.E Eau de Parfum bottle on a polished wooden surface, lit by warm golden light"
+          src="assets/hero-bottle.png"
+          alt="The Bonheur Eternal B.E Eau de Parfum bottle — a tall glass flacon filled with warm amber perfume, crowned with a faceted crystal cap"
+          width="1024"
+          height="1536"
           fetchpriority="high"
           decoding="async"
         />
@@ -106,9 +1217,15 @@
         <div class="cards">
           <article class="card reveal" style="--reveal-delay: 0ms">
             <div class="card__media">
-              <div class="card__placeholder card__placeholder--amber">
-                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleA"/></svg>
-              </div>
+              <img
+                class="card__img card__img--tall"
+                src="assets/signature-fragrances/signature-2.jpeg"
+                alt="Velvet Mist — a warm amber Bonheur Eternal bottle lit by golden light on a wooden surface"
+                width="714"
+                height="1280"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div class="card__body">
               <div class="card__head">
@@ -130,9 +1247,15 @@
 
           <article class="card reveal" style="--reveal-delay: 100ms">
             <div class="card__media">
-              <div class="card__placeholder card__placeholder--ivory">
-                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleB"/></svg>
-              </div>
+              <img
+                class="card__img"
+                src="assets/signature-fragrances/signature-3.jpeg"
+                alt="Scent Luxe — a round-capped black Bonheur Eternal flacon and its matching presentation box"
+                width="1125"
+                height="1138"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div class="card__body">
               <div class="card__head">
@@ -154,9 +1277,15 @@
 
           <article class="card reveal" style="--reveal-delay: 200ms">
             <div class="card__media">
-              <div class="card__placeholder card__placeholder--bronze">
-                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleC"/></svg>
-              </div>
+              <img
+                class="card__img"
+                src="assets/signature-fragrances/signature-1.jpeg"
+                alt="Essence Box — a dark Bonheur Eternal bottle beside its gold-bordered presentation box"
+                width="864"
+                height="1184"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div class="card__body">
               <div class="card__head">
@@ -178,9 +1307,15 @@
 
           <article class="card reveal" style="--reveal-delay: 300ms">
             <div class="card__media">
-              <div class="card__placeholder card__placeholder--rose">
-                <svg viewBox="0 0 120 160" aria-hidden="true"><use href="#bottleD"/></svg>
-              </div>
+              <img
+                class="card__img"
+                src="assets/signature-fragrances/signature-4.jpeg"
+                alt="Nuit Dorée — a dark Bonheur Eternal bottle with a gold label beside its matching box at twilight"
+                width="864"
+                height="1184"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div class="card__body">
               <div class="card__head">
@@ -349,7 +1484,7 @@
     </defs>
   </svg>
 
-  <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/main.js?v=bd35187a"></script>
 
 </body>
 </html>

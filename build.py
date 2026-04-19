@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import sys
 import time
@@ -24,11 +25,30 @@ ROOT      = Path(__file__).resolve().parent
 SRC       = ROOT / "src"
 TEMPLATE  = SRC / "template.html"
 OUTPUT    = ROOT / "index.html"
+STYLES    = ROOT / "styles"
+SCRIPTS   = ROOT / "scripts"
 
 # Matches: <!-- @include path/to/file.html -->   (leading indent preserved)
 INCLUDE_RE = re.compile(
     r"^(?P<indent>[ \t]*)<!--\s*@include\s+(?P<path>[^\s]+)\s*-->\s*$",
     re.MULTILINE,
+)
+
+# Matches @import url("./foo.css") or @import "./foo.css" inside CSS files.
+CSS_IMPORT_RE = re.compile(
+    r'''@import\s+url\(\s*["']?(?P<path>[^"')]+)["']?\s*\)\s*;?''',
+    re.MULTILINE,
+)
+
+# <link rel="stylesheet" href="styles/main.css" /> — replaced with inline CSS.
+LINK_MAIN_CSS_RE = re.compile(
+    r'<link\s+rel="stylesheet"\s+href="styles/main\.css"\s*/?>',
+)
+
+# <script ... src="scripts/main.js"> — version-stamped so module updates
+# always bust the browser cache on rebuild.
+SCRIPT_MAIN_JS_RE = re.compile(
+    r'(<script[^>]*\bsrc=")scripts/main\.js(")',
 )
 
 
@@ -63,16 +83,67 @@ def render(template_path: Path, seen: set[Path] | None = None) -> str:
     return INCLUDE_RE.sub(replace, text)
 
 
+def inline_css(entry: Path, seen: set[Path] | None = None) -> str:
+    """Recursively expand CSS @import directives into a single concatenated string."""
+    seen = seen or set()
+    resolved = entry.resolve()
+    if resolved in seen:
+        return ""
+    seen = seen | {resolved}
+
+    if not entry.exists():
+        raise FileNotFoundError(f"css file not found: {entry}")
+
+    text = entry.read_text(encoding="utf-8")
+
+    def replace(match: re.Match[str]) -> str:
+        ref = match.group("path")
+        target = (entry.parent / ref).resolve()
+        return f"/* ↪ inlined {target.relative_to(ROOT)} */\n" + inline_css(target, seen)
+
+    return CSS_IMPORT_RE.sub(replace, text)
+
+
+def hash_tree(root: Path, suffixes: tuple[str, ...]) -> str:
+    """Short content hash over every file in `root` whose suffix matches."""
+    h = hashlib.sha1()
+    for p in sorted(root.rglob("*")):
+        if p.is_file() and p.suffix in suffixes:
+            h.update(p.read_bytes())
+    return h.hexdigest()[:8]
+
+
 def build() -> None:
     if not TEMPLATE.exists():
         raise SystemExit(f"missing template: {TEMPLATE}")
+
     html = render(TEMPLATE)
+
+    css_bundle = inline_css(STYLES / "main.css")
+    html = LINK_MAIN_CSS_RE.sub(
+        lambda _m: f'<style>\n{css_bundle}\n</style>',
+        html,
+        count=1,
+    )
+
+    js_version = hash_tree(SCRIPTS, (".js",))
+    html = SCRIPT_MAIN_JS_RE.sub(
+        lambda m: f"{m.group(1)}scripts/main.js?v={js_version}{m.group(2)}",
+        html,
+        count=1,
+    )
+
     OUTPUT.write_text(html, encoding="utf-8")
-    print(f"built {OUTPUT.relative_to(ROOT)} ({len(html):,} chars)")
+    print(f"built {OUTPUT.relative_to(ROOT)} ({len(html):,} chars) · js v={js_version}")
 
 
 def iter_sources() -> list[Path]:
-    return list(SRC.rglob("*.html"))
+    """Files that should trigger a rebuild in watch mode."""
+    sources: list[Path] = []
+    sources.extend(SRC.rglob("*.html"))
+    sources.extend(STYLES.rglob("*.css"))
+    sources.extend(SCRIPTS.rglob("*.js"))
+    return sources
 
 
 def watch(poll: float = 0.6) -> None:
