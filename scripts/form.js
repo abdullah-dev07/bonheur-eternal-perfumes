@@ -8,7 +8,7 @@
  * line with a fetch() to that endpoint.
  */
 
-const RECIPIENT = "hello@bonheureternal.com";
+const RECIPIENT = "hello.bonheureternal@gmail.com";
 const EMAIL_RE  = /^\S+@\S+\.\S+$/;
 
 export function initContactForm() {

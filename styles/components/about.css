@@ -22,17 +22,22 @@
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 35%, #e6c9a1 0%, #c9a073 55%, #8c6239 100%);
-  display: grid;
-  place-items: center;
-  color: #7a4e2a;
+  position: relative;
+  background: var(--c-espresso-900);
   box-shadow: var(--shadow-md);
 }
 
-.about__placeholder svg {
-  width: 50%;
-  filter: drop-shadow(0 20px 28px rgba(40, 20, 8, 0.3));
+.about__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;
+  transition: transform 1.4s var(--ease-out);
+  will-change: transform;
 }
+
+.about__media:hover .about__img { transform: scale(1.03); }
 
 .about__content .eyebrow { margin-bottom: var(--s-3); }
 .about__content .section-title { max-width: 18ch; margin-bottom: var(--s-5); }

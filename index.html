@@ -789,17 +789,22 @@ body.is-loaded .hero__glow {
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 35%, #e6c9a1 0%, #c9a073 55%, #8c6239 100%);
-  display: grid;
-  place-items: center;
-  color: #7a4e2a;
+  position: relative;
+  background: var(--c-espresso-900);
   box-shadow: var(--shadow-md);
 }
 
-.about__placeholder svg {
-  width: 50%;
-  filter: drop-shadow(0 20px 28px rgba(40, 20, 8, 0.3));
+.about__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;
+  transition: transform 1.4s var(--ease-out);
+  will-change: transform;
 }
+
+.about__media:hover .about__img { transform: scale(1.03); }
 
 .about__content .eyebrow { margin-bottom: var(--s-3); }
 .about__content .section-title { max-width: 18ch; margin-bottom: var(--s-5); }
@@ -1190,7 +1195,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
           <a
             class="btn btn--primary hero__cta"
             data-reveal="hero-cta"
-            href="https://wa.me/15551234567?text=Hi%20Bonheur%20Eternal%2C%20I%27d%20like%20to%20order%20a%20fragrance."
+            href="https://wa.me/966598192526?text=Hi%20Bonheur%20Eternal%2C%20I%27d%20like%20to%20order%20a%20fragrance."
             target="_blank"
             rel="noopener"
           >
@@ -1219,7 +1224,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
             <div class="card__media">
               <img
                 class="card__img card__img--tall"
-                src="assets/signature-fragrances/signature-2.jpeg"
+                src="assets/signature-fragrances/signature-1.jpeg"
                 alt="Velvet Mist — a warm amber Bonheur Eternal bottle lit by golden light on a wooden surface"
                 width="714"
                 height="1280"
@@ -1238,7 +1243,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
               </p>
               <a
                 class="btn btn--ghost card__cta"
-                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Velvet%20Mist."
+                href="https://wa.me/966598192526?text=Hi%2C%20I%27d%20like%20to%20order%20Velvet%20Mist."
                 target="_blank"
                 rel="noopener"
               >Order via WhatsApp</a>
@@ -1249,7 +1254,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
             <div class="card__media">
               <img
                 class="card__img"
-                src="assets/signature-fragrances/signature-3.jpeg"
+                src="assets/signature-fragrances/signature-2.jpeg"
                 alt="Scent Luxe — a round-capped black Bonheur Eternal flacon and its matching presentation box"
                 width="1125"
                 height="1138"
@@ -1268,7 +1273,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
               </p>
               <a
                 class="btn btn--ghost card__cta"
-                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Scent%20Luxe."
+                href="https://wa.me/966598192526?text=Hi%2C%20I%27d%20like%20to%20order%20Scent%20Luxe."
                 target="_blank"
                 rel="noopener"
               >Order via WhatsApp</a>
@@ -1279,7 +1284,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
             <div class="card__media">
               <img
                 class="card__img"
-                src="assets/signature-fragrances/signature-1.jpeg"
+                src="assets/signature-fragrances/signature-3.png"
                 alt="Essence Box — a dark Bonheur Eternal bottle beside its gold-bordered presentation box"
                 width="864"
                 height="1184"
@@ -1298,7 +1303,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
               </p>
               <a
                 class="btn btn--ghost card__cta"
-                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Essence%20Box."
+                href="https://wa.me/966598192526?text=Hi%2C%20I%27d%20like%20to%20order%20Essence%20Box."
                 target="_blank"
                 rel="noopener"
               >Order via WhatsApp</a>
@@ -1309,7 +1314,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
             <div class="card__media">
               <img
                 class="card__img"
-                src="assets/signature-fragrances/signature-4.jpeg"
+                src="assets/signature-fragrances/signature-5.png"
                 alt="Nuit Dorée — a dark Bonheur Eternal bottle with a gold label beside its matching box at twilight"
                 width="864"
                 height="1184"
@@ -1328,7 +1333,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
               </p>
               <a
                 class="btn btn--ghost card__cta"
-                href="https://wa.me/15551234567?text=Hi%2C%20I%27d%20like%20to%20order%20Nuit%20Doree."
+                href="https://wa.me/966598192526?text=Hi%2C%20I%27d%20like%20to%20order%20Nuit%20Doree."
                 target="_blank"
                 rel="noopener"
               >Order via WhatsApp</a>
@@ -1341,9 +1346,15 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
     <section class="about" id="about">
       <div class="container about__grid">
         <div class="about__media reveal">
-          <div class="about__placeholder" aria-hidden="true">
-            <svg viewBox="0 0 120 160"><use href="#bottleHero"/></svg>
-          </div>
+          <img
+            class="about__img"
+            src="assets/about.jpeg"
+            alt="A gloved hand reaching for a Bonheur Eternal flacon amid apothecary bottles and fresh jasmine — the Bonheur Eternal atelier"
+            width="982"
+            height="1059"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
 
         <div class="about__content reveal" style="--reveal-delay: 120ms">
@@ -1392,9 +1403,9 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
           </p>
 
           <ul class="contact__details">
-            <li><span>Email</span><a href="mailto:hello@bonheureternal.com">hello@bonheureternal.com</a></li>
-            <li><span>WhatsApp</span><a href="https://wa.me/15551234567" target="_blank" rel="noopener">+1 (555) 123-4567</a></li>
-            <li><span>Studio</span><a href="#">Paris · Mumbai · Dubai</a></li>
+            <li><span>Email</span><a href="mailto:hello.bonheureternal@gmail.com">hello.bonheureternal@gmail.com</a></li>
+            <li><span>WhatsApp</span><a href="https://wa.me/966598192526" target="_blank" rel="noopener">+966 598 192 526</a></li>
+            <li><span>Studio</span><a href="#">Karachi · Lahore · Islamabad</a></li>
           </ul>
         </div>
 
@@ -1439,8 +1450,8 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
 
       <ul class="footer__contact">
         <li>www.bonheureternal.com</li>
-        <li>hello@bonheureternal.com</li>
-        <li>+1 (555) 123-4567</li>
+        <li>hello.bonheureternal@gmail.com</li>
+        <li>+966 598 192 526</li>
       </ul>
     </div>
 
@@ -1484,7 +1495,7 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
     </defs>
   </svg>
 
-  <script type="module" src="scripts/main.js?v=bd35187a"></script>
+  <script type="module" src="scripts/main.js?v=92f9f53a"></script>
 
 </body>
 </html>
