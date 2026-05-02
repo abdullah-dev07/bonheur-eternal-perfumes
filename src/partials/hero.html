@@ -4,15 +4,24 @@
              if the image is slow or missing. -->
         <div class="hero__placeholder hero__placeholder--sand" aria-hidden="true"></div>
 
-        <img
-          class="hero__bg"
-          src="assets/background.png"
-          alt="The Bonheur Eternal collection — perfume bottles arranged on a warm wood vanity, lit in low golden light"
-          width="1536"
-          height="1024"
-          fetchpriority="high"
-          decoding="async"
-        />
+        <picture>
+          <!-- Phones: ship a 960px-wide JPEG (~167 KB) instead of the
+               full 1536px desktop frame (~373 KB). Saves ~200 KB on the
+               first paint over a mobile network. -->
+          <source
+            media="(max-width: 640px)"
+            srcset="assets/background-mobile.jpg"
+          />
+          <img
+            class="hero__bg"
+            src="assets/background.jpg"
+            alt="The Bonheur Eternal collection — perfume bottles arranged on a warm wood vanity, lit in low golden light"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
 
         <div class="hero__scrim"></div>
 

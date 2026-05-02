@@ -34,7 +34,8 @@ body.is-loaded .hero__placeholder {
   transform: scale(1);
 }
 
-/* Full-bleed hero background photograph (assets/background.png).
+/* Full-bleed hero background photograph (assets/background.jpg, with
+   assets/background-mobile.jpg served to phones via <picture>).
    Positioned absolutely behind all hero content, covering the entire
    section while preserving aspect ratio. `object-position` keeps the
    key subject (perfume bottles, lower-right) visible across viewport
