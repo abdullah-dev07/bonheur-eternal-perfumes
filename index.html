@@ -410,64 +410,31 @@ body.is-loaded .hero__placeholder {
   transform: scale(1);
 }
 
-/* Hero bottle cut-out (assets/hero-bottle.png — native 1024 × 1536,
-   transparent background). Rendered at native aspect on the right
-   side of the hero, capped at ~460px displayed width so even on
-   retina the upscale stays below 1× (always crisp).
-   Uses `filter: drop-shadow` (not box-shadow) so the shadow follows
-   the bottle silhouette rather than a rectangular frame. */
-.hero__img {
+/* Full-bleed hero background photograph (assets/background.png).
+   Positioned absolutely behind all hero content, covering the entire
+   section while preserving aspect ratio. `object-position` keeps the
+   key subject (perfume bottles, lower-right) visible across viewport
+   sizes — especially when the image is cropped on tall/narrow screens. */
+.hero__bg {
   position: absolute;
-  right: clamp(4rem, 9vw, 8rem);
-  top: 58%;
-  width: clamp(260px, 36vw, 460px);
-  height: auto;
-  z-index: 0;
-
-  filter:
-    drop-shadow(0 6px 10px rgba(20, 10, 4, 0.35))
-    drop-shadow(0 32px 28px rgba(20, 10, 4, 0.45))
-    drop-shadow(0 60px 60px rgba(20, 10, 4, 0.35));
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
 
   opacity: 0;
-  transform: translate(28px, -50%) scale(0.97);
+  transform: scale(1.04);
   transition:
-    opacity 1.2s var(--ease-out) 0.35s,
-    transform 1.4s var(--ease-out) 0.35s;
+    opacity 1.4s var(--ease-out),
+    transform 2.2s var(--ease-out);
   will-change: transform, opacity;
 }
 
-body.is-loaded .hero__img {
+body.is-loaded .hero__bg {
   opacity: 1;
-  transform: translate(0, -50%) scale(1);
-}
-
-/* Soft elliptical ground shadow under the bottle — grounds the
-   cut-out so it feels resting in the scene, not pasted on top. */
-.hero__img-ground {
-  position: absolute;
-  right: clamp(4rem, 9vw, 8rem);
-  top: 58%;
-  width: clamp(260px, 36vw, 460px);
-  aspect-ratio: 1 / 1;
-  transform: translate(-8%, 42%);
-  pointer-events: none;
-  z-index: -1;
-
-  background: radial-gradient(
-    ellipse 60% 18% at 50% 50%,
-    rgba(20, 10, 4, 0.5) 0%,
-    rgba(20, 10, 4, 0.25) 40%,
-    transparent 72%
-  );
-  filter: blur(6px);
-
-  opacity: 0;
-  transition: opacity 1.4s var(--ease-out) 0.55s;
-}
-
-body.is-loaded .hero__img-ground {
-  opacity: 0.9;
+  transform: scale(1);
 }
 
 .hero__placeholder--sand {
@@ -493,40 +460,9 @@ body.is-loaded .hero__img-ground {
   pointer-events: none;
 }
 
-/* Soft amber glow behind the bottle photograph — gives the shot a
-   radiant halo so it reads as a lit product still, not a cut-out. */
-.hero__glow {
-  position: absolute;
-  right: clamp(4rem, 9vw, 8rem);
-  top: 58%;
-  transform: translate(15%, -50%) scale(0.75);
-  width: clamp(360px, 50vw, 620px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 210, 150, 0.55) 0%,
-    rgba(255, 170, 90, 0.18) 45%,
-    transparent 70%
-  );
-  filter: blur(60px);
-  mix-blend-mode: screen;
-  z-index: -1;
-  opacity: 0;
-  transition:
-    opacity 1.8s var(--ease-out) 0.6s,
-    transform 2s var(--ease-out) 0.6s;
-  pointer-events: none;
-}
-
-body.is-loaded .hero__glow {
-  opacity: 1;
-  transform: translate(15%, -50%) scale(1);
-}
-
-/* Subtle scrim — just top/bottom darkening for text legibility over
-   the sand gradient. No heavy left-bias needed now that the photo
-   no longer covers the full hero. */
+/* Scrim — darkens the upper-left where the editorial copy sits and
+   the bottom edge where the CTA lives, while keeping the warm midtones
+   of the photograph (perfume bottles, vanity) visible in between. */
 .hero__scrim {
   position: absolute;
   inset: 0;
@@ -534,11 +470,17 @@ body.is-loaded .hero__glow {
   pointer-events: none;
   background:
     linear-gradient(
+      135deg,
+      rgba(20, 12, 6, 0.55) 0%,
+      rgba(20, 12, 6, 0.25) 35%,
+      rgba(20, 12, 6, 0) 60%
+    ),
+    linear-gradient(
       180deg,
-      rgba(20, 12, 6, 0.30) 0%,
-      rgba(20, 12, 6, 0) 22%,
-      rgba(20, 12, 6, 0) 60%,
-      rgba(20, 12, 6, 0.45) 100%
+      rgba(20, 12, 6, 0.20) 0%,
+      rgba(20, 12, 6, 0) 30%,
+      rgba(20, 12, 6, 0) 55%,
+      rgba(20, 12, 6, 0.55) 100%
     );
 }
 
@@ -581,42 +523,27 @@ body.is-loaded .hero__glow {
   will-change: transform, opacity;
 }
 
-/* On narrow screens: shrink the photo and pin it to the upper-right
-   corner so the headline + CTA flow freely beneath it. */
+/* On narrow screens: anchor the focal point of the background to the
+   right side of the frame (where the perfume bottles cluster) so the
+   product is still in view when the wide photo gets cropped. Also
+   strengthen the scrim a touch so the headline stays readable over
+   the warm midtones. */
 @media (max-width: 640px) {
   .hero__media { min-height: 88vh; }
 
-  .hero__img,
-  .hero__img-ground {
-    top: clamp(90px, 16vh, 22%);
-    right: 1rem;
-    width: min(52vw, 260px);
+  .hero__bg {
+    object-position: 70% center;
   }
 
-  .hero__img {
-    transform: translate(16px, 0) scale(0.97);
-    filter:
-      drop-shadow(0 4px 8px rgba(20, 10, 4, 0.35))
-      drop-shadow(0 18px 18px rgba(20, 10, 4, 0.4))
-      drop-shadow(0 32px 32px rgba(20, 10, 4, 0.3));
-  }
-
-  body.is-loaded .hero__img {
-    transform: translate(0, 0) scale(1);
-  }
-
-  .hero__img-ground {
-    transform: translate(-8%, 50%);
-  }
-
-  .hero__glow {
-    top: clamp(90px, 16vh, 22%);
-    transform: translate(10%, 0) scale(0.75);
-    width: clamp(280px, 60vw, 360px);
-  }
-
-  body.is-loaded .hero__glow {
-    transform: translate(10%, 0) scale(1);
+  .hero__scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(20, 12, 6, 0.55) 0%,
+        rgba(20, 12, 6, 0.25) 30%,
+        rgba(20, 12, 6, 0) 55%,
+        rgba(20, 12, 6, 0.65) 100%
+      );
   }
 }
 
@@ -1162,24 +1089,21 @@ body.is-loaded [data-reveal="hero-cta"]      { transition-delay: 1.05s; }
 
   <main>
     <section class="hero" id="home">
-      <div class="hero__media" aria-label="The Bonheur Eternal signature Eau de Parfum, bathed in warm golden light">
+      <div class="hero__media" aria-label="The Bonheur Eternal collection of perfumes, arranged on a warm wood vanity">
         <!-- Warm gradient sits behind the photo so the colour still feels on-brand
              if the image is slow or missing. -->
         <div class="hero__placeholder hero__placeholder--sand" aria-hidden="true"></div>
 
-        <div class="hero__img-ground" aria-hidden="true"></div>
-
         <img
-          class="hero__img"
-          src="assets/hero-bottle.png"
-          alt="The Bonheur Eternal B.E Eau de Parfum bottle — a tall glass flacon filled with warm amber perfume, crowned with a faceted crystal cap"
-          width="1024"
-          height="1536"
+          class="hero__bg"
+          src="assets/background.png"
+          alt="The Bonheur Eternal collection — perfume bottles arranged on a warm wood vanity, lit in low golden light"
+          width="1536"
+          height="1024"
           fetchpriority="high"
           decoding="async"
         />
 
-        <div class="hero__glow" aria-hidden="true"></div>
         <div class="hero__scrim"></div>
 
         <div class="hero__content container">
