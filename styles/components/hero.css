@@ -190,11 +190,11 @@ body.is-loaded .hero__bg {
   margin-top: 0;
   font-family: var(--ff-display);
   font-size: clamp(1.625rem, 1.25rem + 2.2vw, 3rem);
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 0.98;
   max-width: 14ch;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.94);
   text-shadow: 0 2px 16px rgba(20, 10, 4, 0.22);
 }
 
