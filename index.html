@@ -610,7 +610,7 @@ body.is-loaded .hero__bg {
   z-index: 2;
   left: 0;
   right: 0;
-  top: clamp(5.25rem, 13vh, 7.75rem);
+  top: clamp(3.5rem, 8vh, 5.25rem);
   display: flex;
   justify-content: center;
   padding-inline: var(--s-5);
@@ -638,11 +638,25 @@ body.is-loaded .hero__bg {
 
 /* Primary hero identity — BONHEUR ETERNAL / rule / B.E */
 .hero__brand.brand-lockup {
-  align-items: stretch;
+  align-items: center;
   width: max-content;
   max-width: 100%;
   margin: 0 auto;
   color: #fff;
+}
+
+/* Tight shadow/backing per line — hugs text only, no wide rectangle */
+.hero__brand.brand-lockup .brand-lockup__name,
+.hero__brand.brand-lockup .brand-lockup__monogram {
+  align-self: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.1em 0.32em;
+  border-radius: 2px;
+  background: rgba(12, 8, 5, 0.38);
+  box-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.4),
+    0 0 22px rgba(0, 0, 0, 0.28);
 }
 
 .hero__brand.brand-lockup .brand-lockup__name {
@@ -651,20 +665,21 @@ body.is-loaded .hero__bg {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-shadow:
-    0 0 18px rgba(0, 0, 0, 0.75),
-    0 0 42px rgba(0, 0, 0, 0.45),
-    0 2px 4px rgba(0, 0, 0, 0.85);
+    0 1px 3px rgba(0, 0, 0, 0.65),
+    0 0 16px rgba(0, 0, 0, 0.35);
 }
 
 .hero__brand.brand-lockup .brand-lockup__rule {
-  min-width: clamp(9rem, 32vw, 16rem);
+  align-self: center;
+  width: 100%;
+  min-width: 0;
   height: 1.5px;
   margin-top: clamp(0.55rem, 1.2vw, 0.8rem);
   margin-bottom: clamp(0.45rem, 1vw, 0.65rem);
   opacity: 0.92;
   box-shadow:
-    0 0 12px rgba(0, 0, 0, 0.7),
-    0 0 24px rgba(0, 0, 0, 0.4);
+    0 0 10px rgba(0, 0, 0, 0.65),
+    0 0 18px rgba(0, 0, 0, 0.35);
 }
 
 .hero__brand.brand-lockup .brand-lockup__monogram {
@@ -675,9 +690,8 @@ body.is-loaded .hero__bg {
   letter-spacing: 0.02em;
   line-height: 0.9;
   text-shadow:
-    0 0 22px rgba(0, 0, 0, 0.8),
-    0 0 48px rgba(0, 0, 0, 0.5),
-    0 3px 6px rgba(0, 0, 0, 0.9);
+    0 1px 4px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 /* Supporting tagline — deliberately secondary to the house name */
@@ -722,11 +736,11 @@ body.is-loaded .hero__bg {
   .hero__media { min-height: 88vh; }
 
   .hero__brand-panel {
-    top: clamp(4.75rem, 12vh, 6.25rem);
+    top: clamp(3.25rem, 7.5vh, 4.5rem);
   }
 
   .hero__brand.brand-lockup .brand-lockup__monogram {
-    font-size: clamp(2.125rem, 10vw, 3.25rem);
+    font-size: clamp(1.875rem, 8.5vw, 2.75rem);
   }
 
   .hero__tagline {
